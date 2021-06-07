@@ -1,0 +1,15 @@
+{
+  "MailUpApiv1": {
+    "MailUpLogon": "https://services.mailup.com/Authorization/OAuth/LogOn",
+    "MailUpAuthorization": "https://services.mailup.com/Authorization/OAuth/Authorization",
+    "MailUpToken": "https://services.mailup.com/Authorization/OAuth/Token",
+    "MailUpConsole": "https://services.mailup.com/API/v1.1/Rest/ConsoleService.svc/Console",
+    "MailUpStatisticals": "https://services.mailup.com/API/v1.1/Rest/ConsoleService.svc/MailStatistics",
+    "MailUpClientId": "d500a453-3cca-43f6-b4e4-71089d93b101",
+    "MailUpClientSecret": "95db087e-8e14-4e9c-bcaa-eca80f02b98f"
+  },
+  "ApplicationServices": {
+    "ConnectionString": "",
+    "TypeStore": "SqlServer"
+  }
+}
