@@ -193,5 +193,33 @@ namespace MailUp.EmailMarketing.Abstractions
         EntitySendResponse SendMessage(EntityMessage messageInfo);
         EntitySendResponse SendTemplate(EntityTemplate messageInfo);
 
+        IEnumerable<EntityRecipientUnsubscription> GetMessageUnsubscriptionsByRecipient(
+            int idRecipient,
+            string filterExpression = "",
+            string sortExpression = "",
+            int? pageSize = null,
+            int? pageNumber = null);
+        IEnumerable<EntityRecipientUrlClickDetail> GetMessageClicksDetailsByRecipient(
+            int idRecipient,
+            string filterExpression = "",
+            string sortExpression = "",
+            int? pageSize = null,
+            int? pageNumber = null);
+        IEnumerable<EntityRecipientMessageView> GetMessageViewsByRecipient(
+            int idRecipient,
+            string filterExpression = "",
+            string sortExpression = "",
+            int? pageSize = null,
+            int? pageNumber = null);
+
+        int CountMessageViewsByRecipient(int idRecipient, string filterExpression = "");
+
+        IEnumerable<EntityRecipientClickDetail> GetMessageClicksByRecipient(
+            int idRecipient,
+            string filterExpression = "",
+            string sortExpression = "",
+            int? pageSize = null,
+            int? pageNumber = null);
+
     }
 }

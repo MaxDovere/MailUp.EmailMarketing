@@ -13,14 +13,14 @@ namespace MailUp.EmailMarketing.Core
 {
     public class TokenBase : SessionCache, ITokenBase
     {
-        private readonly ConfigurationsMailUp.MailUpApiv1 _config;
+        private readonly MailUpConfigurations.MailUpApiv1 _config;
 
         public TokenBase()
             : base("MailUp.EmailMarketing.Service.Cache")
         {
-            this._config = new ConfigurationsMailUp.MailUpApiv1();
+            this._config = new MailUpConfigurations.MailUpApiv1();
         }
-        public TokenBase(ConfigurationsMailUp.MailUpApiv1 config)
+        public TokenBase(MailUpConfigurations.MailUpApiv1 config)
             : base("MailUp.EmailMarketing.Service.Cache")
         {
             this._config = config;

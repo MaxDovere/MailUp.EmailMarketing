@@ -31,292 +31,292 @@ namespace MailUp.EmailMarketing.Core
     {
         private readonly RestClient _client = new RestClient();
 
-        public T CallMethod<T>(
-          Method verb,
-          string url,
-          object requestData,
-          string filterExpression = "",
-          string sortExpression = "",
-          int? pageSize = null,
-          int? pageNumber = null,
-          bool consoleEndpoint = true)
-          where T : class
-        {
-            string uri = url;
-            string str1 = consoleEndpoint ? Constants.ConsoleEndpoint : Constants.MailStatisticsEndpoint;
-            if (!url.StartsWith(str1))
-            {
-                string str2 = str1;
-                if (!url.StartsWith("/"))
-                    str2 += "/";
-                uri = str2 + url;
-            }
-            object obj;// = this._oauth2Client.RequestResource<T>(uri, verb.ToString(), requestData, filterExpression, sortExpression, pageSize, pageNumber);
-            switch (obj)
-            {
-                case null:
-                    return default(T);
-                case T _:
-                    return obj as T;
-                case Exception _:
-                    throw new MailUpException(0, (obj as Exception).Message);
-                case Dictionary<string, object> _:
-                    throw new MailUpException(0, string.Join(",", (obj as Dictionary<string, object>).Select<KeyValuePair<string, object>, string>((Func<KeyValuePair<string, object>, string>)(kvp => string.Format("{0}:{1}", (object)kvp.Key, kvp.Value)))));
-                default:
-                    throw new MailUpException(0, obj.ToString());
-            }
-        }
+        //public T CallMethod<T>(
+        //  Method verb,
+        //  string url,
+        //  object requestData,
+        //  string filterExpression = "",
+        //  string sortExpression = "",
+        //  int? pageSize = null,
+        //  int? pageNumber = null,
+        //  bool consoleEndpoint = true)
+        //  where T : class
+        //{
+        //    string uri = url;
+        //    string str1 = consoleEndpoint ? Constants.ConsoleEndpoint : Constants.MailStatisticsEndpoint;
+        //    if (!url.StartsWith(str1))
+        //    {
+        //        string str2 = str1;
+        //        if (!url.StartsWith("/"))
+        //            str2 += "/";
+        //        uri = str2 + url;
+        //    }
+        //    object obj;// = this._oauth2Client.RequestResource<T>(uri, verb.ToString(), requestData, filterExpression, sortExpression, pageSize, pageNumber);
+        //    switch (obj)
+        //    {
+        //        case null:
+        //            return default(T);
+        //        case T _:
+        //            return obj as T;
+        //        case Exception _:
+        //            throw new MailUpException(0, (obj as Exception).Message);
+        //        case Dictionary<string, object> _:
+        //            throw new MailUpException(0, string.Join(",", (obj as Dictionary<string, object>).Select<KeyValuePair<string, object>, string>((Func<KeyValuePair<string, object>, string>)(kvp => string.Format("{0}:{1}", (object)kvp.Key, kvp.Value)))));
+        //        default:
+        //            throw new MailUpException(0, obj.ToString());
+        //    }
+        //}
 
-        public long CallMethodWithNumericResponse(
-          Method verb,
-          string url,
-          object requestData,
-          string filterExpression = "",
-          string sortExpression = "",
-          int? pageSize = null,
-          int? pageNumber = null,
-          bool consoleEndpoint = true)
-        {
-            string uri = url;
-            string str1 = consoleEndpoint ? Constants.ConsoleEndpoint : Constants.MailStatisticsEndpoint;
-            if (!url.StartsWith(str1))
-            {
-                string str2 = str1;
-                if (!url.StartsWith("/"))
-                    str2 += "/";
-                uri = str2 + url;
-            }
-            object obj;// = this._oauth2Client.RequestResource<long>(uri, verb.ToString(), requestData, filterExpression, sortExpression, pageSize, pageNumber);
-            switch (obj)
-            {
-                case null:
-                    return 0;
-                case long num:
-                    return num;
-                case Exception _:
-                    throw new MailUpException(0, (obj as Exception).Message);
-                case Dictionary<string, object> _:
-                    throw new MailUpException(0, string.Join(",", (obj as Dictionary<string, object>).Select<KeyValuePair<string, object>, string>((Func<KeyValuePair<string, object>, string>)(kvp => string.Format("{0}:{1}", (object)kvp.Key, kvp.Value)))));
-                default:
-                    throw new MailUpException(0, obj.ToString());
-            }
-        }
+        //public long CallMethodWithNumericResponse(
+        //  Method verb,
+        //  string url,
+        //  object requestData,
+        //  string filterExpression = "",
+        //  string sortExpression = "",
+        //  int? pageSize = null,
+        //  int? pageNumber = null,
+        //  bool consoleEndpoint = true)
+        //{
+        //    string uri = url;
+        //    string str1 = consoleEndpoint ? Constants.ConsoleEndpoint : Constants.MailStatisticsEndpoint;
+        //    if (!url.StartsWith(str1))
+        //    {
+        //        string str2 = str1;
+        //        if (!url.StartsWith("/"))
+        //            str2 += "/";
+        //        uri = str2 + url;
+        //    }
+        //    object obj;// = this._oauth2Client.RequestResource<long>(uri, verb.ToString(), requestData, filterExpression, sortExpression, pageSize, pageNumber);
+        //    switch (obj)
+        //    {
+        //        case null:
+        //            return 0;
+        //        case long num:
+        //            return num;
+        //        case Exception _:
+        //            throw new MailUpException(0, (obj as Exception).Message);
+        //        case Dictionary<string, object> _:
+        //            throw new MailUpException(0, string.Join(",", (obj as Dictionary<string, object>).Select<KeyValuePair<string, object>, string>((Func<KeyValuePair<string, object>, string>)(kvp => string.Format("{0}:{1}", (object)kvp.Key, kvp.Value)))));
+        //        default:
+        //            throw new MailUpException(0, obj.ToString());
+        //    }
+        //}
 
-        public T CallDirectMethod<T>(Method verb, string url, object requestData) where T : class
-        {
-            RestRequest restRequest = new RestRequest(url, verb); //.GetRestMethod());
-            restRequest.RequestFormat = DataFormat.Json;
-            restRequest.AddJsonBody(requestData);
-            IRestResponse restResponse;
-            try
-            {
-                restResponse = this._client.Execute((IRestRequest)restRequest);
-            }
-            catch (Exception ex)
-            {
-                throw new MailUpException(0, ex.Message);
-            }
-            string json = restResponse.StatusCode == HttpStatusCode.OK ? restResponse.Content : throw new MailUpException((int)restResponse.StatusCode, restResponse.ErrorMessage);
-            if (string.IsNullOrEmpty(json))
-                return default(T);
-            try
-            {
-                return JsonConvert.DeserializeObject<T>(json);
-            }
-            catch (Exception ex)
-            {
-                throw new MailUpException(0, ex.Message);
-            }
-        }
+        //public T CallDirectMethod<T>(Method verb, string url, object requestData) where T : class
+        //{
+        //    RestRequest restRequest = new RestRequest(url, verb); //.GetRestMethod());
+        //    restRequest.RequestFormat = DataFormat.Json;
+        //    restRequest.AddJsonBody(requestData);
+        //    IRestResponse restResponse;
+        //    try
+        //    {
+        //        restResponse = this._client.Execute((IRestRequest)restRequest);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw new MailUpException(0, ex.Message);
+        //    }
+        //    string json = restResponse.StatusCode == HttpStatusCode.OK ? restResponse.Content : throw new MailUpException((int)restResponse.StatusCode, restResponse.ErrorMessage);
+        //    if (string.IsNullOrEmpty(json))
+        //        return default(T);
+        //    try
+        //    {
+        //        return JsonConvert.DeserializeObject<T>(json);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw new MailUpException(0, ex.Message);
+        //    }
+        //}
 
-        public string PrepareURLToSendEmail(
-            string action,
-            string senderName,
-            string senderAddress,
-            DateTime? scheduledTime)
-        {
-            action = ClientUtils.AddQuerystringParam(action, "SenderName", senderName);
-            action = ClientUtils.AddQuerystringParam(action, "SenderAddress", senderAddress);
-            if (scheduledTime.HasValue)
-                action = ClientUtils.AddQuerystringParam(action, "datetime", scheduledTime.Value.ToString("yyyy-MM-dd HH:mm:ssZ"));
-            return action;
-        }
+        //public string PrepareURLToSendEmail(
+        //    string action,
+        //    string senderName,
+        //    string senderAddress,
+        //    DateTime? scheduledTime)
+        //{
+        //    action = ClientUtils.AddQuerystringParam(action, "SenderName", senderName);
+        //    action = ClientUtils.AddQuerystringParam(action, "SenderAddress", senderAddress);
+        //    if (scheduledTime.HasValue)
+        //        action = ClientUtils.AddQuerystringParam(action, "datetime", scheduledTime.Value.ToString("yyyy-MM-dd HH:mm:ssZ"));
+        //    return action;
+        //}
         //ConsoleListCreateDetails
-        public int CreateList(EntityList list) => (int)this.CallMethodWithNumericResponse(Method.POST, "Console/User/Lists", (EntityList)list);
-        //ConsoleListUpdateDetails
-        public EntityList UpdateList(EntityList list) => (EntityList)(list == null || list.IdList <= 0 ? (EntityList)null : this.CallMethod<EntityList>(Method.PUT, string.Format("Console/User/List/{0}", (int)list.IdList), (EntityList)list));
-        //ConsoleListItem - IEnumerable<ConsoleListItem>
-        public EntityList GetList(int idList) =>
-            this.CallMethod<EntityList>(Method.GET, "Console/User/Lists", (object) null, "idList == " + (object) idList); //-> SafeFirstOrDefault<ConsoleListItem>();
-        //ConsoleListItem - IEnumerable<ConsoleListItem>
-        public EntityList GetList(string listName) =>
-            (EntityList)(string.IsNullOrEmpty(listName)
-                ? (EntityList) null
-                : this.CallMethod<EntityList>(Method.GET, "Console/User/Lists", (object) null,
-                    "Name.Trim().Equals('" + listName.Trim() + "')")); // -> SafeFirstOrDefault<ConsoleListItem>();
-        //IEnumerable<ConsoleListItem> - 
-        public EntitiesLists GetLists(
-          string filterExpression = "",
-          string sortExpression = "",
-          int? pageSize = null,
-          int? pageNumber = null)
-        {
-            return this.CallMethod<EntitiesLists>(Method.GET, "Console/User/Lists", (object)null, filterExpression, sortExpression, pageSize, pageNumber);
-        }
-        //ConsoleGroupItem
-        public EntityGroup  CreateGroup(EntityGroup group)
-        {
-            if (group != null)
-            {
-                int? idList = group.IdList;
-                if ((idList.GetValueOrDefault() > 0 ? 0 : (idList.HasValue ? 1 : 0)) == 0)
-                    return this.CallMethod<EntityGroup>(Method.POST, string.Format("Console/List/{0}/Group", group.IdList), (EntityGroup)group);
-            }
-            return default;
-        }
-        public EntityGroup UpdateGroup(EntityGroup group)
-        {
-            if (group != null)
-            {
-                int? idList = group.idList;
-                if ((idList.GetValueOrDefault() > 0 ? 0 : (idList.HasValue ? 1 : 0)) == 0)
-                {
-                    int? idGroup = group.idGroup;
-                    if ((idGroup.GetValueOrDefault() > 0 ? 0 : (idGroup.HasValue ? 1 : 0)) == 0)
-                        return this.CallMethod<ConsoleGroupItem>(Method.PUT, string.Format("Console/List/{0}/Group/{1}", (object)group.idList, (object)group.idGroup), (object)group);
-                }
-            }
-            return (ConsoleGroupItem)null;
-        }
-        public void DeleteGroup(int idList, int idGroup) => this.CallMethodWithNumericResponse(Method.DELETE, string.Format("Console/List/{0}/Group/{1}", (object)idList, (object)idGroup), (object)null);
-        //IEnumerable<ConsoleGroupItem>
-        public EntityGroup GetGroup(int idList, int idGroup) => (EntityGroup)this.CallMethod<EntityGroup>(Method.GET, string.Format("Console/List/{0}/Groups", (object)idList), (object)null, "idGroup == " + (object)idGroup); // -> .SafeFirstOrDefault<ConsoleGroupItem>();
-        // IEnumerable<ConsoleGroupItem>
-        public EntityGroup GetGroup(int idList, string groupName) => string.IsNullOrEmpty(groupName) ? (object)null : this.CallMethod<EntityGroup>(Method.GET, string.Format("Console/List/{0}/Groups", (object)idList), (object)null, "Name.Trim().Equals('" + groupName.Trim() + "')"); // -> .SafeFirstOrDefault<ConsoleGroupItem>();
-        //IEnumerable<ConsoleGroupItem>
-        public EntitiesGroups GetGroups(
-          int idList,
-          string filterExpression = "",
-          string sortExpression = "",
-          int? pageSize = null,
-          int? pageNumber = null)
-        {
-            return this.CallMethod<EntitiesGroups>(Method.GET, string.Format("Console/List/{0}/Groups", (object)idList), (object)null, filterExpression, sortExpression, pageSize, pageNumber);
-        }
+        //public int CreateList(EntityList list) => (int)this.CallMethodWithNumericResponse(Method.POST, "Console/User/Lists", (EntityList)list);
+        ////ConsoleListUpdateDetails
+        //public EntityList UpdateList(EntityList list) => (EntityList)(list == null || list.IdList <= 0 ? (EntityList)null : this.CallMethod<EntityList>(Method.PUT, string.Format("Console/User/List/{0}", (int)list.IdList), (EntityList)list));
+        ////ConsoleListItem - IEnumerable<ConsoleListItem>
+        //public EntityList GetList(int idList) =>
+        //    this.CallMethod<EntityList>(Method.GET, "Console/User/Lists", (object) null, "idList == " + (object) idList); //-> SafeFirstOrDefault<ConsoleListItem>();
+        ////ConsoleListItem - IEnumerable<ConsoleListItem>
+        //public EntityList GetList(string listName) =>
+        //    (EntityList)(string.IsNullOrEmpty(listName)
+        //        ? (EntityList) null
+        //        : this.CallMethod<EntityList>(Method.GET, "Console/User/Lists", (object) null,
+        //            "Name.Trim().Equals('" + listName.Trim() + "')")); // -> SafeFirstOrDefault<ConsoleListItem>();
+        ////IEnumerable<ConsoleListItem> - 
+        //public EntitiesLists GetLists(
+        //  string filterExpression = "",
+        //  string sortExpression = "",
+        //  int? pageSize = null,
+        //  int? pageNumber = null)
+        //{
+        //    return this.CallMethod<EntitiesLists>(Method.GET, "Console/User/Lists", (object)null, filterExpression, sortExpression, pageSize, pageNumber);
+        //}
+        ////ConsoleGroupItem
+        //public EntityGroup  CreateGroup(EntityGroup group)
+        //{
+        //    if (group != null)
+        //    {
+        //        int? idList = group.IdList;
+        //        if ((idList.GetValueOrDefault() > 0 ? 0 : (idList.HasValue ? 1 : 0)) == 0)
+        //            return this.CallMethod<EntityGroup>(Method.POST, string.Format("Console/List/{0}/Group", group.IdList), (EntityGroup)group);
+        //    }
+        //    return default;
+        //}
+        //public EntityGroup UpdateGroup(EntityGroup group)
+        //{
+        //    if (group != null)
+        //    {
+        //        int? idList = group.idList;
+        //        if ((idList.GetValueOrDefault() > 0 ? 0 : (idList.HasValue ? 1 : 0)) == 0)
+        //        {
+        //            int? idGroup = group.idGroup;
+        //            if ((idGroup.GetValueOrDefault() > 0 ? 0 : (idGroup.HasValue ? 1 : 0)) == 0)
+        //                return this.CallMethod<ConsoleGroupItem>(Method.PUT, string.Format("Console/List/{0}/Group/{1}", (object)group.idList, (object)group.idGroup), (object)group);
+        //        }
+        //    }
+        //    return (ConsoleGroupItem)null;
+        //}
+        //public void DeleteGroup(int idList, int idGroup) => this.CallMethodWithNumericResponse(Method.DELETE, string.Format("Console/List/{0}/Group/{1}", (object)idList, (object)idGroup), (object)null);
+        ////IEnumerable<ConsoleGroupItem>
+        //public EntityGroup GetGroup(int idList, int idGroup) => (EntityGroup)this.CallMethod<EntityGroup>(Method.GET, string.Format("Console/List/{0}/Groups", (object)idList), (object)null, "idGroup == " + (object)idGroup); // -> .SafeFirstOrDefault<ConsoleGroupItem>();
+        //// IEnumerable<ConsoleGroupItem>
+        //public EntityGroup GetGroup(int idList, string groupName) => string.IsNullOrEmpty(groupName) ? (object)null : this.CallMethod<EntityGroup>(Method.GET, string.Format("Console/List/{0}/Groups", (object)idList), (object)null, "Name.Trim().Equals('" + groupName.Trim() + "')"); // -> .SafeFirstOrDefault<ConsoleGroupItem>();
+        ////IEnumerable<ConsoleGroupItem>
+        //public EntitiesGroups GetGroups(
+        //  int idList,
+        //  string filterExpression = "",
+        //  string sortExpression = "",
+        //  int? pageSize = null,
+        //  int? pageNumber = null)
+        //{
+        //    return this.CallMethod<EntitiesGroups>(Method.GET, string.Format("Console/List/{0}/Groups", (object)idList), (object)null, filterExpression, sortExpression, pageSize, pageNumber);
+        //}
         //EntityRecipient
-        public int AddRecipientToList(int idList, EntityRecipient recipient, bool withCOI = false)
-        {
-            string url = string.Format("Console/List/{0}/Recipient", (object)idList);
-            if (withCOI)
-                url += "?ConfirmEmail=true";
-            return (int)this.CallMethodWithNumericResponse(Method.POST, url, recipient);
-        }
-        //EntityRecipient
-        public int AddRecipientsToList(int idList, List<EntityRecipient> recipients, bool withCOI = false)
-        {
-            string url = string.Format("Console/List/{0}/Recipients", (object)idList);
-            if (withCOI)
-                url += "?confirmMessage=true";
-            return (int)this.CallMethodWithNumericResponse(Method.POST, url, recipients);
-        }
-        //ConsoleImportStatus
-        public EntityImportStatus CheckImportStatus(int idImport) => this.CallMethod<EntityImportStatus>(Method.GET, string.Format("Console/Import/{0}", (object)idImport), (object)null);
-        //EntityRecipient
-        public bool ForceOptinOnUnsubscribedRecipient(int idList, string recipientEmail)
-        {
-            int idImport = (int)this.CallMethodWithNumericResponse(Method.POST, string.Format("Console/List/{0}/Recipients?importType=asOptin", (object)idList), (object)new List<EntityRecipient>()
-            {
-                new EntityRecipient() { Email = recipientEmail }
-            });
-            int num = 0;
-            do
-            {
-                EntityImportStatus consoleImportStatus = this.CheckImportStatus(idImport);
-                if (consoleImportStatus == null)
-                    return false;
-                if (consoleImportStatus.Completed)
-                    return true;
-                ++num;
-                Thread.Sleep(500);
-            }
-            while (num < 20);
-            return false;
-        }
-        public void UnsubscribeRecipient(int idList, int idRecipient) => this.CallMethod<EntityRecipient>(Method.DELETE, string.Format("Console/List/{0}/Unsubscribe/{1}", (object)idList, (object)idRecipient), (object)null);
-        public int UnsubscribeRecipients(int idList, List<string> emailRecipients)
-        {
-            if (emailRecipients == null || emailRecipients.Count <= 0)
-                return -1;
-            List<EntityRecipient> EntityRecipientList = new List<EntityRecipient>();
-            foreach (string emailRecipient in emailRecipients)
-                EntityRecipientList.Add(new EntityRecipient()
-                {
-                    Email = emailRecipient
-                });
-            return (int)this.CallMethodWithNumericResponse(Method.POST, string.Format("Console/List/{0}/Recipients?importType=asOptout", (object)idList), (object)EntityRecipientList);
-        }
-        //IEnumerable<ConsoleDynamicFieldItem>
-        public object GetPersonalDataFields() => this.CallMethod<object>(Method.GET, "Console/Recipient/DynamicFields", (object)null);
-        public EntityRecipient UpdateRecipient(EntityRecipient recipient) => this.CallMethod<EntityRecipient>(Method.PUT, "Console/Recipient/Detail", (object)recipient);
-        public EnumSubscriptionStatus GetEnumSubscriptionStatus(int idList, int idRecipient)
-        {
-            string filter = "idRecipient==" + (object)idRecipient;
-            return this.RetrieveEnumSubscriptionStatus(idList, filter);
-        }
-        public EnumSubscriptionStatus GetEnumSubscriptionStatus(
-          int idList,
-          string emailRecipient)
-        {
-            if (string.IsNullOrEmpty(emailRecipient))
-                return EnumSubscriptionStatus.Unknown;
-            string filter = "Email.Trim().Equals('" + emailRecipient.Trim() + "')";
-            return this.RetrieveEnumSubscriptionStatus(idList, filter);
-        }
-        private EnumSubscriptionStatus RetrieveEnumSubscriptionStatus(
-          int idList,
-          string filter)
-        {
-            if (this.GetRecipientInStatus(EnumSubscriptionStatus.Subscribed, idList, filter) != null)
-                return EnumSubscriptionStatus.Subscribed;
-            if (this.GetRecipientInStatus(EnumSubscriptionStatus.Pending, idList, filter) != null)
-                return EnumSubscriptionStatus.Pending;
-            return this.GetRecipientInStatus(EnumSubscriptionStatus.Unsubscribed, idList, filter) != null ? EnumSubscriptionStatus.Unsubscribed : EnumSubscriptionStatus.Unknown;
-        }
-        private EntityRecipient GetRecipientInStatus(
-          EnumSubscriptionStatus status,
-          int idList,
-          string filter)
-        {
-            return this.GetRecipientsInStatus(status, idList, filter, pageSize: new int?(1)).SafeFirstOrDefault<EntityRecipient>();
-        }
-        public IEnumerable<EntityRecipient> GetRecipientsInStatus(
-          EnumSubscriptionStatus status,
-          int idList,
-          string filterExpression = "",
-          string sortExpression = "",
-          int? pageSize = null,
-          int? pageNumber = null)
-        {
-            string format;
-            switch (status)
-            {
-                case EnumSubscriptionStatus.Pending:
-                    format = "Console/List/{0}/Recipients/Pending";
-                    break;
-                case EnumSubscriptionStatus.Subscribed:
-                    format = "Console/List/{0}/Recipients/Subscribed";
-                    break;
-                case EnumSubscriptionStatus.Unsubscribed:
-                    format = "Console/List/{0}/Recipients/Unsubscribed";
-                    break;
-                default:
-                    return (IEnumerable<EntityRecipient>)null;
-            }
-            return this.CallMethod<IEnumerable<EntityRecipient>>(Method.GET, string.Format(format, (object)idList), (object)null, filterExpression, sortExpression, pageSize, pageNumber);
-        }
-        public int AddRecipientToGroup(int idGroup, EntityRecipient recipient) => (int)this.CallMethodWithNumericResponse(Method.POST, string.Format("Console/Group/{0}/Recipient", (object)idGroup), (object)recipient);
-        public int AddRecipientsToGroup(int idGroup, List<EntityRecipient> recipients) => (int)this.CallMethodWithNumericResponse(Method.POST, string.Format("Console/Group/{0}/Recipients", (object)idGroup), (object)recipients);
-        public void RemoveRecipientFromGroup(int idGroup, int idRecipient) => this.CallMethod<object>(Method.DELETE, string.Format("Console/Group/{0}/Unsubscribe/{1}", (object)idGroup, (object)idRecipient), (object)null);
+        //public int AddRecipientToList(int idList, EntityRecipient recipient, bool withCOI = false)
+        //{
+        //    string url = string.Format("Console/List/{0}/Recipient", (object)idList);
+        //    if (withCOI)
+        //        url += "?ConfirmEmail=true";
+        //    return (int)this.CallMethodWithNumericResponse(Method.POST, url, recipient);
+        //}
+        ////EntityRecipient
+        //public int AddRecipientsToList(int idList, List<EntityRecipient> recipients, bool withCOI = false)
+        //{
+        //    string url = string.Format("Console/List/{0}/Recipients", (object)idList);
+        //    if (withCOI)
+        //        url += "?confirmMessage=true";
+        //    return (int)this.CallMethodWithNumericResponse(Method.POST, url, recipients);
+        //}
+        ////ConsoleImportStatus
+        //public EntityImportStatus CheckImportStatus(int idImport) => this.CallMethod<EntityImportStatus>(Method.GET, string.Format("Console/Import/{0}", (object)idImport), (object)null);
+        ////EntityRecipient
+        //public bool ForceOptinOnUnsubscribedRecipient(int idList, string recipientEmail)
+        //{
+        //    int idImport = (int)this.CallMethodWithNumericResponse(Method.POST, string.Format("Console/List/{0}/Recipients?importType=asOptin", (object)idList), (object)new List<EntityRecipient>()
+        //    {
+        //        new EntityRecipient() { Email = recipientEmail }
+        //    });
+        //    int num = 0;
+        //    do
+        //    {
+        //        EntityImportStatus consoleImportStatus = this.CheckImportStatus(idImport);
+        //        if (consoleImportStatus == null)
+        //            return false;
+        //        if (consoleImportStatus.Completed)
+        //            return true;
+        //        ++num;
+        //        Thread.Sleep(500);
+        //    }
+        //    while (num < 20);
+        //    return false;
+        //}
+        //public void UnsubscribeRecipient(int idList, int idRecipient) => this.CallMethod<EntityRecipient>(Method.DELETE, string.Format("Console/List/{0}/Unsubscribe/{1}", (object)idList, (object)idRecipient), (object)null);
+        //public int UnsubscribeRecipients(int idList, List<string> emailRecipients)
+        //{
+        //    if (emailRecipients == null || emailRecipients.Count <= 0)
+        //        return -1;
+        //    List<EntityRecipient> EntityRecipientList = new List<EntityRecipient>();
+        //    foreach (string emailRecipient in emailRecipients)
+        //        EntityRecipientList.Add(new EntityRecipient()
+        //        {
+        //            Email = emailRecipient
+        //        });
+        //    return (int)this.CallMethodWithNumericResponse(Method.POST, string.Format("Console/List/{0}/Recipients?importType=asOptout", (object)idList), (object)EntityRecipientList);
+        //}
+        ////IEnumerable<ConsoleDynamicFieldItem>
+        //public object GetPersonalDataFields() => this.CallMethod<object>(Method.GET, "Console/Recipient/DynamicFields", (object)null);
+        //public EntityRecipient UpdateRecipient(EntityRecipient recipient) => this.CallMethod<EntityRecipient>(Method.PUT, "Console/Recipient/Detail", (object)recipient);
+        //public EnumSubscriptionStatus GetEnumSubscriptionStatus(int idList, int idRecipient)
+        //{
+        //    string filter = "idRecipient==" + (object)idRecipient;
+        //    return this.RetrieveEnumSubscriptionStatus(idList, filter);
+        //}
+        //public EnumSubscriptionStatus GetEnumSubscriptionStatus(
+        //  int idList,
+        //  string emailRecipient)
+        //{
+        //    if (string.IsNullOrEmpty(emailRecipient))
+        //        return EnumSubscriptionStatus.Unknown;
+        //    string filter = "Email.Trim().Equals('" + emailRecipient.Trim() + "')";
+        //    return this.RetrieveEnumSubscriptionStatus(idList, filter);
+        //}
+        //private EnumSubscriptionStatus RetrieveEnumSubscriptionStatus(
+        //  int idList,
+        //  string filter)
+        //{
+        //    if (this.GetRecipientInStatus(EnumSubscriptionStatus.Subscribed, idList, filter) != null)
+        //        return EnumSubscriptionStatus.Subscribed;
+        //    if (this.GetRecipientInStatus(EnumSubscriptionStatus.Pending, idList, filter) != null)
+        //        return EnumSubscriptionStatus.Pending;
+        //    return this.GetRecipientInStatus(EnumSubscriptionStatus.Unsubscribed, idList, filter) != null ? EnumSubscriptionStatus.Unsubscribed : EnumSubscriptionStatus.Unknown;
+        //}
+        //private EntityRecipient GetRecipientInStatus(
+        //  EnumSubscriptionStatus status,
+        //  int idList,
+        //  string filter)
+        //{
+        //    return this.GetRecipientsInStatus(status, idList, filter, pageSize: new int?(1)).SafeFirstOrDefault<EntityRecipient>();
+        //}
+        //public IEnumerable<EntityRecipient> GetRecipientsInStatus(
+        //  EnumSubscriptionStatus status,
+        //  int idList,
+        //  string filterExpression = "",
+        //  string sortExpression = "",
+        //  int? pageSize = null,
+        //  int? pageNumber = null)
+        //{
+        //    string format;
+        //    switch (status)
+        //    {
+        //        case EnumSubscriptionStatus.Pending:
+        //            format = "Console/List/{0}/Recipients/Pending";
+        //            break;
+        //        case EnumSubscriptionStatus.Subscribed:
+        //            format = "Console/List/{0}/Recipients/Subscribed";
+        //            break;
+        //        case EnumSubscriptionStatus.Unsubscribed:
+        //            format = "Console/List/{0}/Recipients/Unsubscribed";
+        //            break;
+        //        default:
+        //            return (IEnumerable<EntityRecipient>)null;
+        //    }
+        //    return this.CallMethod<IEnumerable<EntityRecipient>>(Method.GET, string.Format(format, (object)idList), (object)null, filterExpression, sortExpression, pageSize, pageNumber);
+        //}
+        //public int AddRecipientToGroup(int idGroup, EntityRecipient recipient) => (int)this.CallMethodWithNumericResponse(Method.POST, string.Format("Console/Group/{0}/Recipient", (object)idGroup), (object)recipient);
+        //public int AddRecipientsToGroup(int idGroup, List<EntityRecipient> recipients) => (int)this.CallMethodWithNumericResponse(Method.POST, string.Format("Console/Group/{0}/Recipients", (object)idGroup), (object)recipients);
+        //public void RemoveRecipientFromGroup(int idGroup, int idRecipient) => this.CallMethod<object>(Method.DELETE, string.Format("Console/Group/{0}/Unsubscribe/{1}", (object)idGroup, (object)idRecipient), (object)null);
         public EntityMessage CreateMessage(
           int idList,
           EntityMessage message)

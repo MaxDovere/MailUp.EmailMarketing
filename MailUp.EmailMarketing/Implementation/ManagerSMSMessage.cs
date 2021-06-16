@@ -12,7 +12,7 @@ namespace MailUp.EmailMarketing.Implementation
 {
     public class ManagerSMSMessage : ManagerBase, IManagerSMSMessage
     {
-        public ManagerSMSMessage(AuthorizationModel model, ConfigurationsMailUp.MailUpApiv1 config)
+        public ManagerSMSMessage(AuthorizationModel model, MailUpConfigurations.MailUpApiv1 config)
             : base(model, config)
         {
         }

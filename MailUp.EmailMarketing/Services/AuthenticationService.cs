@@ -9,7 +9,9 @@ namespace MailUp.EmailMarketing.Services
 {
     public class AuthenticationService: TokenBase, IAuthenticationService
     {
-        public AuthenticationService(ConfigurationsMailUp.MailUpApiv1 config)
+        public AuthorizationModel AccountLogon => CacheModel;
+
+        public AuthenticationService(MailUpConfigurations.MailUpApiv1 config)
             :base (config)
         {
         }

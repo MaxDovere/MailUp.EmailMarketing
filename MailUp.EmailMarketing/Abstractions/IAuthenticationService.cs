@@ -9,6 +9,7 @@ namespace MailUp.EmailMarketing.Abstractions
 {
     public interface IAuthenticationService
     {
+        AuthorizationModel AccountLogon { get; }
         string LogOnUri(string callbackUri);
         Task<AuthorizationModel> LoginWithPassword(string username, string password);
         Task<AuthorizationModel> LoginWithCode(string code);

@@ -1,12 +1,13 @@
-﻿using MailUp.EmailMarketing.Entities;
-using MailUp.EmailMarketing.Model;
-using Microsoft.AspNetCore.Http;
-using System.Threading.Tasks;
+﻿using MailUp.EmailMarketing.Configurations;
 
 namespace MailUp.EmailMarketing.Abstractions
 {
     public interface IMailUpService
     {
+        MailUpConfigurations.MailUpApiv1 MailUpConfiguration { get; }
+        IManagerContainer Container { get; set; }
+        IManagerDelivery Delivery{ get; set; }
+        IManagerSMSMessage SMSMessage { get; set; }
         /////// <summary>
         /////// LogIOnUri: Compose path Uri with connect callback address http
         /////// </summary>

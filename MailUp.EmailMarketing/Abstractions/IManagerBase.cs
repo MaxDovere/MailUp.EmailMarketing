@@ -13,31 +13,6 @@ namespace MailUp.EmailMarketing.Abstractions
     {
         AuthorizationModel AuthorizedUser { get; init; }
 
-        T CallMethod<T>(
-            Method verb,
-            string scheme,
-            string url,
-            object requestData,
-            string filterExpression = "",
-            string sortExpression = "",
-            int? pageSize = null,
-            int? pageNumber = null,
-            bool consoleEndpoint = true)
-            where T : class;
-
-         long CallMethodWithNumericResponse(
-            Method verb,
-            string scheme,
-            string url,
-            object requestData,
-            string filterExpression = "",
-            string sortExpression = "",
-            int? pageSize = null,
-            int? pageNumber = null,
-            bool consoleEndpoint = true);
-
-         T CallDirectMethod<T>(Method verb, string scheme, string url, object requestData) where T : class;
-
          string PrepareURLToSendEmail(
             string action,
             string senderName,

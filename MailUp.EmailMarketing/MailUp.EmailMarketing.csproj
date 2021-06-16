@@ -11,11 +11,14 @@
     <Compile Remove="Core\ReflectCallApi_Original.cs" />
     <Compile Remove="Entities\EntityContent.cs" />
     <Compile Remove="Core\HelperUtils.cs" />
+    <Compile Remove="Model\BaseRequest.cs" />
+    <Compile Remove="Model\CreateRequest.cs" />
     <Compile Remove="Model\DynamicFieldDTO.cs" />
     <Compile Remove="Model\EmailDynamicFieldDTO.cs" />
     <Compile Remove="Model\EmailMessageItemDTO.cs" />
     <Compile Remove="Model\EmailTagDTO.cs" />
     <Compile Remove="Model\EmailTrackingInfoDTO.cs" />
+    <Compile Remove="Model\ListRequest.cs" />
     <Compile Remove="Model\ResponseMessage.cs" />
     <Compile Remove="Model\UserModel.cs" />
     <Compile Remove="ServicesHostStartup.cs" />

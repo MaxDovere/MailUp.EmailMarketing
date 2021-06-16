@@ -7,8 +7,9 @@ using System.Threading.Tasks;
 
 namespace MailUp.EmailMarketing.Configurations
 {
-    public static class Constants
+    public static class MailUpUriConstants
     {
+        public const string SCHEME_AUTH = "Bearer";
         /// <summary>Relative URL to create a new list</summary>
         public const string CREATE_LIST = "Console/User/Lists";
         /// <summary>Relative URL to update a list</summary>
@@ -319,14 +320,14 @@ namespace MailUp.EmailMarketing.Configurations
         /// </summary>
         public static readonly string SendEndpoint = ConfigurationManager.AppSettings["MailUpSendEndpoint"] != null ? ConfigurationManager.AppSettings["MailUpSendEndpoint"].ToString() : "https://send.mailup.com/api/v2.0/";
         /// <summary>The log-on endpoint</summary>
-        public static readonly string LogonEndpoint = Constants.BaseAuthEndpoint + "OAuth/LogOn";
+        public static readonly string LogonEndpoint = MailUpUriConstants.BaseAuthEndpoint + "OAuth/LogOn";
         /// <summary>The authorization endpoint</summary>
-        public static readonly string AuthorizationEndpoint = Constants.BaseAuthEndpoint + "OAuth/Authorization";
+        public static readonly string AuthorizationEndpoint = MailUpUriConstants.BaseAuthEndpoint + "OAuth/Authorization";
         /// <summary>The token endpoint</summary>
-        public static readonly string TokenEndpoint = Constants.BaseAuthEndpoint + "OAuth/Token";
+        public static readonly string TokenEndpoint = MailUpUriConstants.BaseAuthEndpoint + "OAuth/Token";
         /// <summary>The console endpoint</summary>
-        public static readonly string ConsoleEndpoint = Constants.BaseEndpoint + "Rest/ConsoleService.svc";
+        public static readonly string ConsoleEndpoint = MailUpUriConstants.BaseEndpoint + "Rest/ConsoleService.svc";
         /// <summary>The mail statistics endpoint</summary>
-        public static readonly string MailStatisticsEndpoint = Constants.BaseEndpoint + "Rest/MailStatisticsService.svc";
+        public static readonly string MailStatisticsEndpoint = MailUpUriConstants.BaseEndpoint + "Rest/MailStatisticsService.svc";
     }
 }

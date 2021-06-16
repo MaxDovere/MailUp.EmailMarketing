@@ -10,7 +10,7 @@ namespace MailUp.EmailMarketing.Implementation
 {
     public class ManagerDelivery : ManagerBase, IManagerDelivery
     {
-        public ManagerDelivery(AuthorizationModel model, ConfigurationsMailUp.MailUpApiv1 config)
+        public ManagerDelivery(AuthorizationModel model, MailUpConfigurations.MailUpApiv1 config)
             : base(model, config)
         {
         }
@@ -61,6 +61,11 @@ namespace MailUp.EmailMarketing.Implementation
         }
 
         public int CountMessageViews(int idMessage, string filterExpression = "")
+        {
+            throw new NotImplementedException();
+        }
+
+        public int CountMessageViewsByRecipient(int idRecipient, string filterExpression = "")
         {
             throw new NotImplementedException();
         }
@@ -136,6 +141,16 @@ namespace MailUp.EmailMarketing.Implementation
             throw new NotImplementedException();
         }
 
+        public IEnumerable<EntityRecipientClickDetail> GetMessageClicksByRecipient(int idRecipient, string filterExpression = "", string sortExpression = "", int? pageSize = null, int? pageNumber = null)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<EntityRecipientUrlClickDetail> GetMessageClicksDetailsByRecipient(int idRecipient, string filterExpression = "", string sortExpression = "", int? pageSize = null, int? pageNumber = null)
+        {
+            throw new NotImplementedException();
+        }
+
         public IEnumerable<EntityMessageDelivery> GetMessageDeliveries(int idRecipient, string filterExpression = "",
             string sortExpression = "", int? pageSize = null, int? pageNumber = null)
         {
@@ -165,6 +180,11 @@ namespace MailUp.EmailMarketing.Implementation
             throw new NotImplementedException();
         }
 
+        public IEnumerable<EntityRecipientUnsubscription> GetMessageUnsubscriptionsByRecipient(int idRecipient, string filterExpression = "", string sortExpression = "", int? pageSize = null, int? pageNumber = null)
+        {
+            throw new NotImplementedException();
+        }
+
         public IEnumerable<EntityMessageUrlClick> GetMessageUrlClicks(int idMessage, string filterExpression = "",
             string sortExpression = "", int? pageSize = null, int? pageNumber = null)
         {
@@ -179,6 +199,11 @@ namespace MailUp.EmailMarketing.Implementation
 
         public IEnumerable<EntityMessageView> GetMessageViews(int idMessage, string filterExpression = "",
             string sortExpression = "", int? pageSize = null, int? pageNumber = null)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<EntityRecipientMessageView> GetMessageViewsByRecipient(int idRecipient, string filterExpression = "", string sortExpression = "", int? pageSize = null, int? pageNumber = null)
         {
             throw new NotImplementedException();
         }

@@ -60,32 +60,5 @@ namespace MailUp.EmailMarketing.Abstractions
         int AddRecipientToGroup(int idGroup, EntityRecipient recipient);
         int AddRecipientsToGroup(int idGroup, List<EntityRecipient> recipients);
         void RemoveRecipientFromGroup(int idGroup, int idRecipient);
-        IEnumerable<EntityRecipientUnsubscription> GetMessageUnsubscriptionsByRecipient(
-            int idRecipient,
-            string filterExpression = "",
-            string sortExpression = "",
-            int? pageSize = null,
-            int? pageNumber = null);
-        IEnumerable<EntityRecipientUrlClickDetail> GetMessageClicksDetailsByRecipient(
-            int idRecipient,
-            string filterExpression = "",
-            string sortExpression = "",
-            int? pageSize = null,
-            int? pageNumber = null);
-        IEnumerable<EntityRecipientMessageView> GetMessageViewsByRecipient(
-            int idRecipient,
-            string filterExpression = "",
-            string sortExpression = "",
-            int? pageSize = null,
-            int? pageNumber = null);
-
-        int CountMessageViewsByRecipient(int idRecipient, string filterExpression = "");
-
-        IEnumerable<EntityRecipientClickDetail> GetMessageClicksByRecipient(
-            int idRecipient,
-            string filterExpression = "",
-            string sortExpression = "",
-            int? pageSize = null,
-            int? pageNumber = null);
     }
 }

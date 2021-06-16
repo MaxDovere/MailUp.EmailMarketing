@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MailUp.EmailMarketing.Configurations
 {
-    public class ConfigurationsMailUp
+    public class MailUpConfigurations
     {
         public class MailUpApiv1
         {
