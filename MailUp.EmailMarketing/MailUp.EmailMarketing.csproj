@@ -5,27 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Abstractions\IResponse.cs" />
-    <Compile Remove="Abstractions\Response.cs" />
-    <Compile Remove="Core\EX_ReflectCallApi.cs" />
-    <Compile Remove="Core\ReflectCallApi_Original.cs" />
-    <Compile Remove="Entities\EntityContent.cs" />
-    <Compile Remove="Core\HelperUtils.cs" />
-    <Compile Remove="Model\BaseRequest.cs" />
-    <Compile Remove="Model\CreateRequest.cs" />
-    <Compile Remove="Model\DynamicFieldDTO.cs" />
-    <Compile Remove="Model\EmailDynamicFieldDTO.cs" />
-    <Compile Remove="Model\EmailMessageItemDTO.cs" />
-    <Compile Remove="Model\EmailTagDTO.cs" />
-    <Compile Remove="Model\EmailTrackingInfoDTO.cs" />
-    <Compile Remove="Model\ListRequest.cs" />
-    <Compile Remove="Model\ResponseMessage.cs" />
-    <Compile Remove="Model\UserModel.cs" />
-    <Compile Remove="ServicesHostStartup.cs" />
-    <Compile Remove="Services\EX_MailUpService.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
     <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="5.0.0" />
